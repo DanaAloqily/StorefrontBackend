@@ -4,8 +4,8 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import RateLimit from 'express-rate-limit';
 import errorMiddleware from './middleware/error.middleware';
-import db from './database';
 import config from './middleware/config';
+import routes from './routes'
 
 console.log(config)
 
@@ -31,19 +31,15 @@ app.use(RateLimit({
   message:'to many requests from this IP!!'
 }))
 
+app.use('/api',routes)
+
 app.get('/', function (req: Request, res: Response) {
-  throw new Error('Error found')
+ // throw new Error('Error found')
   res.json({
       message:'Hello World!!🌍'
   });
 });
-app.post('/', function (req: Request, res: Response) {
-  res.json({
-      message:'Hello World!!🌍 from post',
-      //returned data
-      data: req.body
-  });
-});
+
 
 
 //error thrown in server handling
