@@ -4,6 +4,10 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import RateLimit from 'express-rate-limit';
 import errorMiddleware from './middleware/error.middleware';
+import db from './database';
+import config from './middleware/config';
+
+console.log(config)
 
 const app: express.Application = express();
 const address = '0.0.0.0:3000';
@@ -40,6 +44,7 @@ app.post('/', function (req: Request, res: Response) {
       data: req.body
   });
 });
+
 
 //error thrown in server handling
 app.use(errorMiddleware);
