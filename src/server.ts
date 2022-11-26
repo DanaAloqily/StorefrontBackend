@@ -7,7 +7,7 @@ import errorMiddleware from './middleware/error.middleware';
 import config from './middleware/config';
 import routes from './routes'
 
-console.log(config)
+//console.log(config)
 
 const app: express.Application = express();
 const address = '0.0.0.0:3000';

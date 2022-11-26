@@ -1,7 +1,7 @@
 type user = {
-    id?: number;
-    first_name: string;
-    last_name: string;
+    id?: string;
+    firstName: string;
+    lastName: string;
     password: string;
     };
     
