@@ -70,14 +70,14 @@ async create(u: user):Promise<user> {
 }
 
 //orders: get all orders of a specific user *users/:id/orders*
-async orders(id: string):Promise<order> {
+async orders(id: string):Promise<order[]> {
     try {
 
         //step1: open conn with db
         const connection = await db.connect();
 
         //step2: run sql query
-        const sql = `SELECT * FROM orders WHERE id =($1) `;
+        const sql = `SELECT * FROM orders WHERE userID =($1) `;
         const result = await connection.query(sql);
         //step3: release db conn
         connection.release();

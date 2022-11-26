@@ -12,14 +12,10 @@ const user_routes = express.Router();
 // api/user
 user_routes.route('/')
 .get(controllers.index).post( controllers.create )
-user_routes.route('/:id')
-.get(controllers.show).get(controllers.orders)
-
+user_routes.route('/:id').get(controllers.show)
+user_routes.route('/:id/order').get(controllers.orders)
 ;
 
-//user_routes.get('/' , controllers.create );
-//routes.post(./ , );
-//...
 
 
 export default user_routes;
