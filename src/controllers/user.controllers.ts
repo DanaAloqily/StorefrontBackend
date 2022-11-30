@@ -3,7 +3,7 @@ import userModel from '../models/user.model';
 
 const Usermodel = new userModel();
 
-
+//create user
 export const create = async (req:Request , res:Response, next: NextFunction) => {
     try{
        const user = await Usermodel.create(req.body);
@@ -20,7 +20,7 @@ export const create = async (req:Request , res:Response, next: NextFunction) => 
   
 }
 
-
+//list all users
 export const index = async (req:Request, res: Response , next:NextFunction) => {
 
 try{
@@ -36,7 +36,7 @@ res.json({
     next(error)
 }
 }
-
+//get user by userID
 export const show = async (req:Request , res: Response, next: NextFunction) => {
 
     try{
@@ -51,10 +51,11 @@ res.json({
         next(error)
     }
 }
-
+//get order by user id
 export const orders = async (req:Request, res:Response, next:NextFunction) => {
 try{
-const orders = await Usermodel.orders(req.params.id as unknown as string)
+                                    //user/:id/orders
+const orders = await Usermodel.orders(req.params.id as unknown as string) 
 res.json({
     status:"success",
     data: orders,

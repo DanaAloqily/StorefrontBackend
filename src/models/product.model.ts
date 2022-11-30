@@ -59,7 +59,7 @@ async create(p: product):Promise<product> {
         const connection = await db.connect();
 
         //step2: run sql query
-        const sql = `INSERT INTO users ( productId, quantity, status) VALUES ($1, $2, $3)`
+        const sql = `INSERT INTO products ( productName, productPrice, productCategory) VALUES ($1, $2, $3) returning id, productName, productPrice, productCategory`
         const result = await connection.query(sql, [
          p.productName,
          p.productPrice,
@@ -71,6 +71,7 @@ async create(p: product):Promise<product> {
         //step4: return new user
         return result.rows[0];
     } catch (error) {
+        console.log(error)
         throw new Error('Unable to create the product');
     }
 }
