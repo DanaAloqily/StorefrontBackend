@@ -97,22 +97,35 @@ class userModel {
     }
   }
 
-  /*  async authenticate(id: string, password: string): Promise<user | null> {
-    const salt = parseInt(config.salt as string, 10);
-    const connection = await db.connect();
-    const sql = 'SELECT password FROM users WHERE id=($1)';
+  async authenticate(id: string, password: string): Promise<user | null> {
+    try {
+      const salt = parseInt(config.salt as string, 10);
 
-    const result = await connection.query(sql, [id]);
-    console.log(password + config.pepper);
-    if (result.rows.length) {
-      const user = result.rows[0];
-      console.log(user);
-      if (bcrypt.compareSync(password + config.pepper, user.password)) {
-        return user;
+      const connection = await db.connect();
+      const sql = 'SELECT password FROM users WHERE id=$1';
+      const result = await connection.query(sql, [id]);
+
+      console.log(password + config.pepper);
+
+      if (result.rows.length) {
+        const { password: hashPassword } = result.rows[0];
+        const isPasswordValid = bcrypt.compareSync(
+          `${password}${config.pepper}`,
+          hashPassword
+        );
+        if (isPasswordValid) {
+          const userInfo = await connection.query(
+            'SELECT firstName, lastName FROM users WHERE id=($1)',
+            [id]
+          );
+          return userInfo.rows[0];
+        }
       }
+      connection.release();
+      return null; // no match
+    } catch (error) {
+      throw new Error(`unable to find match: ${(error as Error).message}`);
     }
-
-    return null; //password didnt match hashed password
-  } */
+  }
 }
 export default userModel;
