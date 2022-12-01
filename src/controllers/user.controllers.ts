@@ -46,7 +46,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
     const user = await Usermodel.show(req.params.id as unknown as string);
     res.json({
       status: 'success',
-      data: user,
+      data: { ...user },
       message: 'user retrieved successfuly'
     });
   } catch (error) {
@@ -85,8 +85,9 @@ export const authenticate = async (
 
     if (!auth) {
       return res.status(401).json({
+        //401:unautherized user
         status: 'error',
-        message: 'the id & pssword does not match!'
+        message: 'the id & password does not match!'
       });
     }
     return res.json({

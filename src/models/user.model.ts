@@ -38,7 +38,7 @@ class userModel {
       const connection = await db.connect();
 
       //step2: run sql query
-      const sql = 'SELECT id, firstName, lastName FROM users WHERE id =($1)';
+      const sql = 'select * from users where id=($1)';
       const result = await connection.query(sql, [id]);
       //step3: release db conn
       connection.release();
@@ -46,6 +46,7 @@ class userModel {
       //step4: return new user
       return result.rows[0];
     } catch (error) {
+      console.log(error);
       throw new Error('Unable to find the user');
     }
   }

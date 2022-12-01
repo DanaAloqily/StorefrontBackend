@@ -1,13 +1,14 @@
 import express, { Request, Response } from 'express';
 import * as controllers from '../../controllers/user.controllers';
+import isTokenValid from '../../middleware/auth.middleware';
 
 const user_routes = express.Router();
 
-user_routes.get('/', (req: Request, res: Response) => {
+/* user_routes.get('/', (req: Request, res: Response) => {
   res.status(200).json({
     message: 'hello world from user👤'
   });
-});
+}); */
 
 // api/user
 user_routes
