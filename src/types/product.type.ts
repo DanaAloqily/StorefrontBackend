@@ -1,7 +1,7 @@
 type product = {
-    id?: number;
-    productName: string;
-    productPrice: string;
-    productCategory: string;
-}
+  id?: number;
+  product_name: string;
+  product_price: string;
+  product_category: string;
+};
 export default product;

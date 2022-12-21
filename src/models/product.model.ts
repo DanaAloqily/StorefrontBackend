@@ -32,14 +32,14 @@ class productModel {
 
       //step2: run sql query
       const sql = 'SELECT * FROM products WHERE id=($1) ';
-      const result = await connection.query(sql);
+      const result = await connection.query(sql, [id]);
       //step3: release db conn
       connection.release();
 
       //step4: return new user
       return result.rows[100];
     } catch (error) {
-      throw new Error('Unable to find the product');
+      throw new Error(error + 'Unable to find the product');
     }
   }
 
@@ -51,11 +51,12 @@ class productModel {
       const connection = await db.connect();
 
       //step2: run sql query
-      const sql = 'INSERT INTO products ( productName, productPrice, productCategory) VALUES ($1, $2, $3) returning id, productName, productPrice, productCategory';
+      const sql =
+        'INSERT INTO products ( product_name, product_price, product_category) VALUES ($1, $2, $3) returning id, product_name, product_price, product_category';
       const result = await connection.query(sql, [
-        p.productName,
-        p.productPrice,
-        p.productCategory
+        p.product_name,
+        p.product_price,
+        p.product_category
       ]);
       //step3: release db conn
       connection.release();

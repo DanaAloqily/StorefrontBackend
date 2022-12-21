@@ -15,7 +15,7 @@ export const create = async (
     res.json({
       status: 'success',
       data: { ...user },
-      message: `user ${req.body.firstName} ${req.body.lastName} created successfuly`
+      message: `user ${req.body.first_name} ${req.body.last_name} created successfuly`
     });
   } catch (error) {
     // sinceerror handling already handled
@@ -33,7 +33,7 @@ export const index = async (
     const users = await Usermodel.index();
     res.json({
       status: 'success',
-      data: users,
+      data: { ...users },
       message: 'Users retrieved successfully'
     });
   } catch (error) {

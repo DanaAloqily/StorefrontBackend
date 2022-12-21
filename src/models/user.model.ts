@@ -18,7 +18,7 @@ class userModel {
       const connection = await db.connect();
 
       //step2: run sql query
-      const sql = 'SELECT id, firstName, lastName FROM users';
+      const sql = 'SELECT * FROM users ';
       const result = await connection.query(sql);
       //step3: release db conn
       connection.release();
@@ -59,10 +59,10 @@ class userModel {
 
       //step2: run sql query
       const sql =
-        'INSERT INTO users ( firstName, lastName, password) VALUES ($1, $2, $3) returning id, firstName, lastName '; //comes for body of req
+        'INSERT INTO users ( first_name, last_name, password) VALUES ($1, $2, $3) returning id, first_name, last_name '; //comes for body of req
       const result = await connection.query(sql, [
-        u.firstName,
-        u.lastName,
+        u.first_name,
+        u.last_name,
         hashPassword(u.password)
       ]);
       //step3: release db conn
@@ -72,7 +72,7 @@ class userModel {
       return result.rows[100];
     } catch (error) {
       throw new Error(
-        `Unable to create (${u.firstName}+" "+ ${u.lastName}): ${
+        `Unable to create (${u.first_name}+" "+ ${u.last_name}): ${
           (error as Error).message
         }`
       );
@@ -86,8 +86,8 @@ class userModel {
       const connection = await db.connect();
 
       //step2: run sql query
-      const sql = 'SELECT * FROM orders WHERE userID =($1) ';
-      const result = await connection.query(sql);
+      const sql = 'SELECT * FROM orders WHERE user_id =($1) ';
+      const result = await connection.query(sql, [id]);
       //step3: release db conn
       connection.release();
 
@@ -116,7 +116,7 @@ class userModel {
         );
         if (isPasswordValid) {
           const userInfo = await connection.query(
-            'SELECT firstName, lastName FROM users WHERE id=($1)',
+            'SELECT first_name, last_name FROM users WHERE id=($1)',
             [id]
           );
           return userInfo.rows[0];
