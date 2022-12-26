@@ -5,7 +5,7 @@ import db from '../database';
 class productModel {
   //index: list all procducts
 
-  async index(p: product): Promise<product[]> {
+  async index(): Promise<product[]> {
     try {
       //step1: open conn with db
       const connection = await db.connect();

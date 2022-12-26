@@ -4,16 +4,16 @@ import order from '../types/order.types';
 import db from '../database';
 
 class orderModel {
-  //show: get a specific order by orderId
+  //show: get a specific order by user_id
 
-  async show(id: string): Promise<order> {
+  async show(user_id: string): Promise<order> {
     try {
       //step1: open conn with db
       const connection = await db.connect();
 
       //step2: run sql query
-      const sql = 'SELECT * FROM orders WHERE id =($1)';
-      const result = await connection.query(sql, [id]);
+      const sql = 'SELECT * FROM orders WHERE user_id =($1)';
+      const result = await connection.query(sql, [user_id]);
       //step3: release db conn
       connection.release();
 

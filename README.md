@@ -1,73 +1,84 @@
 # StorefrontBackend
 
-Building API using Express & postgres
+Building a backend API in Nodejs for a storefront, by creating REST APIs that the frontend developer will use to integrate the backend with the fronend
 
-## set up steps
+The database schema and and API endpoint route info are mentioned in the [REQUIREMENT.md]
 
-1- run "npm install" for package installaton
+### Installing
 
-2- run "npm run migration:run" for DB set up
-port: 5432
+run the following commands
 
-3- run "npm run dev" to start app
+-to install the projects packages/dependencies
 
-## API Endpoints
+""" npm run install """
 
-#### Users
+# Database setup
 
--To create a user:
-body ={
-"first_name":"Tala",
-"last_name":"Aloqily",
-"password":"test234"
-}
-route: api/user/
+Create DB
 
----
+- connect to the default postgres database as the server's root user `psql -U postgres`
+- In psql run the following to create a user
+  - `CREATE USER postgres WITH PASSWORD 'Dev29499';`
+- In psql run the following to create the dev and test database
+  - `CREATE DATABASE storefront_dev;`
+  - `CREATE DATABASE storefront_test;`
+- Connect to the databases and grant all privileges
+  - Grant for dev database
+    - `\c storefront_dev`
+    - `GRANT ALL PRIVILEGES ON DATABASE storefront_dev TO postgres;`
+  - Grant for test database
+    - `\c storefront_test`
+    - `GRANT ALL PRIVILEGES ON DATABASE storefront_test TO postgres;`
 
--To get one user by id:
+### Migrate Database
 
-route: api/user/:id
+Navigate to the root directory and run the command below to migrate the database
+`db-migare up`
 
----
+### Setup environment
 
--To get orders of user by id:
+## .env
 
-route: api/user/:id/orders
+create a '.env' file with all required env variables
 
-#### Products
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=storefront_dev
+POSTGRES_DB_TEST=storefront_test
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=Dev29499
 
-To create a product:
-body={
-"product_name":"The Secret History",
-"product_price":"80",
-"product_category":"Book"
-}
-route: api/products/
+BCRYPT_PASSWORD=Akvk
+SALT_ROUNDS=10
+TOKEN_SECRET=cardigan
 
----
+# Envioremnet
 
-To show a product by id:
+NODE_env = dev
 
-route: api/products/:id
+## Start App
 
-#### Orders
+run the followin command to start the app
+`npm run dev`
 
-To create an order:
-body: {
-"status":"proccessing",
-"user_id":"1"
-}
-route: api/orders/
+### Running Ports
 
----
+After start up, the server will start on port `3000` and the database on port `5432`
 
-To add products to an order:
+## Endpoint Access
 
-route: api/orders/:id/products
+All endpoints are described in the [REQUIREMENT.md](REQUIREMENTS.md) file.
 
----
+## Token and Authentication
 
-To show a specific order by order_id:
+Tokens are passed along with the http header as
 
-route: api/orders/:id
+```
+Authorization   Bearer <token>
+```
+
+## Testing
+
+Run test with
+
+`npm run test`

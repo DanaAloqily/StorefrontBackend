@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import userModel from '../models/user.model';
-import orderModel from '../models/order.model';
 import productModel from '../models/product.model';
+import product from '../types/product.type';
 
 const ProductModel = new productModel();
 
@@ -11,7 +10,7 @@ export const index = async (
   next: NextFunction
 ) => {
   try {
-    const products = await ProductModel.index;
+    const products: product[] = await ProductModel.index();
     res.json({
       status: 'success',
       data: { ...products },
@@ -24,7 +23,9 @@ export const index = async (
 
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const product = await ProductModel.show(req.params.id as unknown as string);
+    const product: product = await ProductModel.show(
+      req.params.id as unknown as string
+    );
 
     res.json({
       status: 'success',
@@ -42,7 +43,7 @@ export const create = async (
   next: NextFunction
 ) => {
   try {
-    const product = await ProductModel.create(req.body);
+    const product: product = await ProductModel.create(req.body);
 
     res.json({
       status: 'success',

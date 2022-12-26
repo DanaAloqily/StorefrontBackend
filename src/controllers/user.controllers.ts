@@ -2,6 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import userModel from '../models/user.model';
 import config from '../middleware/config';
 import jwt from 'jsonwebtoken';
+import user from '../types/user.types';
+import order from '../types/order.types';
+
 const Usermodel = new userModel();
 
 //create user
@@ -30,7 +33,7 @@ export const index = async (
   next: NextFunction
 ) => {
   try {
-    const users = await Usermodel.index();
+    const users: user[] = await Usermodel.index();
     res.json({
       status: 'success',
       data: { ...users },
@@ -48,24 +51,6 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
       status: 'success',
       data: { ...user },
       message: 'user retrieved successfuly'
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-//get order by user id
-export const orders = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    //user/:id/orders
-    const orders = await Usermodel.orders(req.params.id as unknown as string);
-    res.json({
-      status: 'success',
-      data: orders,
-      message: 'orders retrieved successfuly'
     });
   } catch (error) {
     next(error);

@@ -65,6 +65,7 @@ class userModel {
         u.last_name,
         hashPassword(u.password)
       ]);
+
       //step3: release db conn
       connection.release();
 
@@ -76,25 +77,6 @@ class userModel {
           (error as Error).message
         }`
       );
-    }
-  }
-
-  //orders: get all orders of a specific user *users/:id/orders*
-  async orders(id: string): Promise<order[]> {
-    try {
-      //step1: open conn with db
-      const connection = await db.connect();
-
-      //step2: run sql query
-      const sql = 'SELECT * FROM orders WHERE user_id =($1) ';
-      const result = await connection.query(sql, [id]);
-      //step3: release db conn
-      connection.release();
-
-      //step4: return new user
-      return result.rows[100];
-    } catch (error) {
-      throw new Error('Unable to find the orders');
     }
   }
 

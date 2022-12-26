@@ -1,15 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
 import orderModel from '../models/order.model';
+import order from '../types/order.types';
+import userModel from '../models/user.model';
+import user from '../types/user.types';
 
 const Ordermodel = new orderModel();
-//get an order by orderID
+const Usermodel = new userModel();
+//get an order by user_id
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const order = await Ordermodel.show(req.params.id as unknown as string);
+    const user: user = await Usermodel.show(req.params.id as unknown as string);
+    const order: order = await Ordermodel.show(
+      req.params.id as unknown as string
+    );
     res.json({
       status: 'success',
       data: order,
-      message: 'order retrieved successfuly'
+      message: `order by ${user.first_name} ${user.last_name}retrieved successfuly`
     });
   } catch (error) {
     next(error);
@@ -23,7 +30,7 @@ export const create = async (
   next: NextFunction
 ) => {
   try {
-    const order = await Ordermodel.create(req.body);
+    const order: order = await Ordermodel.create(req.body);
     res.json({
       status: 'success',
       data: { ...order },

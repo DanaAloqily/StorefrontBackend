@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import * as controllers from '../../controllers/user.controllers';
+import isTokenValid from '../../middleware/auth.middleware';
 
 const user_routes = express.Router();
 
@@ -12,10 +13,9 @@ const user_routes = express.Router();
 // api/user
 user_routes
   .route('/')
-  .get(controllers.index)
-  .post(controllers.create)
-  .post(controllers.authenticate);
-user_routes.route('/:id').get(controllers.show);
-user_routes.route('/:id/orders').get(controllers.orders);
+  .get(isTokenValid, controllers.index)
+  .post(isTokenValid, controllers.create)
+  .post(isTokenValid, controllers.authenticate);
+user_routes.route('/:id').get(isTokenValid, controllers.show);
 
 export default user_routes;
