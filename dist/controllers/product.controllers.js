@@ -9,9 +9,7 @@ const ProductModel = new product_model_1.default();
 const index = async (req, res, next) => {
     try {
         const products = await ProductModel.index();
-        res.json({
-            status: 'success',
-            data: { ...products },
+        res.status(200).send({
             message: 'products retrieved successfully'
         });
     }
@@ -23,10 +21,8 @@ exports.index = index;
 const show = async (req, res, next) => {
     try {
         const product = await ProductModel.show(req.params.id);
-        res.json({
-            status: 'success',
-            data: { ...product },
-            message: `product ${req.params.id} retrieved successfully`
+        res.status(200).send({
+            message: `product ${product.product_name} retrieved successfully`
         });
     }
     catch (error) {
@@ -37,10 +33,8 @@ exports.show = show;
 const create = async (req, res, next) => {
     try {
         const product = await ProductModel.create(req.body);
-        res.json({
-            status: 'success',
-            data: { product },
-            message: 'product created successfully'
+        res.status(200).send({
+            message: `product: ${product.product_name} created successfully`
         });
     }
     catch (error) {

@@ -56,10 +56,9 @@ class userModel {
     try {
       //step1: open conn with db
       const connection = await db.connect();
-
       //step2: run sql query
       const sql =
-        'INSERT INTO users ( first_name, last_name, password) VALUES ($1, $2, $3) returning id, first_name, last_name '; //comes for body of req
+        'INSERT INTO users (first_name, last_name, password) VALUES ($1, $2, $3) returning id, first_name, last_name '; //comes for body of req
       const result = await connection.query(sql, [
         u.first_name,
         u.last_name,
@@ -80,7 +79,7 @@ class userModel {
     }
   }
 
-  async authenticate(id: string, password: string): Promise<user | null> {
+  /*   async authenticate(id: string, password: string): Promise<user | null> {
     try {
       const salt = parseInt(config.salt as string, 10);
 
@@ -109,6 +108,6 @@ class userModel {
     } catch (error) {
       throw new Error(`unable to find match: ${(error as Error).message}`);
     }
-  }
+  } */
 }
 export default userModel;

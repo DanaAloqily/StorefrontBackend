@@ -13,10 +13,8 @@ const show = async (req, res, next) => {
     try {
         const user = await Usermodel.show(req.params.id);
         const order = await Ordermodel.show(req.params.id);
-        res.json({
-            status: 'success',
-            data: order,
-            message: `order by ${user.first_name} ${user.last_name}retrieved successfuly`
+        res.status(200).send({
+            message: `order ${order.id} with status ${order.status} retrieved successfuly`
         });
     }
     catch (error) {
@@ -28,11 +26,9 @@ exports.show = show;
 const create = async (req, res, next) => {
     try {
         const order = await Ordermodel.create(req.body);
-        res.json({
-            status: 'success',
-            data: { ...order },
-            message: `order of ${req.body.user_id} created successfuly`
-        });
+        res
+            .status(200)
+            .send({ message: `order of user ${order.user_id} created successfuly` });
     }
     catch (error) {
         next(error);
@@ -43,10 +39,10 @@ const add_product = async (req, res, next) => {
     try {
         const order = await Ordermodel.add_product(req.params.id, //order id
         req.body.product_id, req.body.quantity);
-        res.json({
-            status: 'success',
-            data: { order },
-            message: 'product added to order'
+        res
+            .status(200)
+            .send({
+            message: `product ${req.body.product_id} added to order ${order.id} `
         });
     }
     catch (error) {

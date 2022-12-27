@@ -11,9 +11,7 @@ export const index = async (
 ) => {
   try {
     const products: product[] = await ProductModel.index();
-    res.json({
-      status: 'success',
-      data: { ...products },
+    res.status(200).send({
       message: 'products retrieved successfully'
     });
   } catch (error) {
@@ -26,11 +24,8 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
     const product: product = await ProductModel.show(
       req.params.id as unknown as string
     );
-
-    res.json({
-      status: 'success',
-      data: { ...product },
-      message: `product ${req.params.id} retrieved successfully`
+    res.status(200).send({
+      message: `product ${req.params.product_name} retrieved successfully`
     });
   } catch (error) {
     next(error);
@@ -44,11 +39,8 @@ export const create = async (
 ) => {
   try {
     const product: product = await ProductModel.create(req.body);
-
-    res.json({
-      status: 'success',
-      data: { product },
-      message: 'product created successfully'
+    res.status(200).send({
+      message: `product: ${req.body.product_name} created successfully`
     });
   } catch (error) {
     next(error);

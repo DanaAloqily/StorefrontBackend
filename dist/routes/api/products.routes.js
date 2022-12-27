@@ -22,10 +22,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const controllers = __importStar(require("../../controllers/product.controllers"));
-const authToken_middleware_1 = require("../../middleware/authToken.middleware");
+const verifyToken_middleware_1 = __importDefault(require("../../middleware/Authentication/verifyToken.middleware"));
 const products_routes = (0, express_1.Router)();
 /* products_routes.get('/',(req: Request, res:Response) =>{
     res.status(200).json({
@@ -35,6 +38,6 @@ const products_routes = (0, express_1.Router)();
 products_routes
     .route('/')
     .get(controllers.index)
-    .post(authToken_middleware_1.authToken, controllers.create);
+    .post(verifyToken_middleware_1.default, controllers.create);
 products_routes.route('/:id').get(controllers.show);
 exports.default = products_routes;

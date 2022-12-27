@@ -13,10 +13,8 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
     const order: order = await Ordermodel.show(
       req.params.id as unknown as string
     );
-    res.json({
-      status: 'success',
-      data: order,
-      message: `order by ${user.first_name} ${user.last_name}retrieved successfuly`
+    res.status(200).send({
+      message: `order ${req.params.id} with status ${req.body.status} retrieved successfuly`
     });
   } catch (error) {
     next(error);
@@ -31,11 +29,11 @@ export const create = async (
 ) => {
   try {
     const order: order = await Ordermodel.create(req.body);
-    res.json({
-      status: 'success',
-      data: { ...order },
-      message: `order of ${req.body.user_id} created successfuly`
-    });
+    res
+      .status(200)
+      .send({
+        message: `order of user ${req.body.user_id} created successfuly`
+      });
   } catch (error) {
     next(error);
   }
@@ -52,10 +50,8 @@ export const add_product = async (
       req.body.product_id,
       req.body.quantity
     );
-    res.json({
-      status: 'success',
-      data: { order },
-      message: 'product added to order'
+    res.status(200).send({
+      message: `product ${req.body.product_id} added to order ${req.params.id} `
     });
   } catch (error) {
     next(error);

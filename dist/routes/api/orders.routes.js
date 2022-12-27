@@ -22,12 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const controllers = __importStar(require("../../controllers/orders.controllers"));
-const authToken_middleware_1 = require("../../middleware/authToken.middleware");
+const verifyToken_middleware_1 = __importDefault(require("../../middleware/Authentication/verifyToken.middleware"));
 const orders_routes = (0, express_1.Router)();
 orders_routes.route('/').post(controllers.create);
-orders_routes.route('/:user_id').get(authToken_middleware_1.authToken, controllers.show);
+orders_routes.route('/:user_id').get(verifyToken_middleware_1.default, controllers.show);
 orders_routes.route('/:id/products').post(controllers.add_product);
 exports.default = orders_routes;

@@ -3,7 +3,7 @@ import userModel from '../models/user.model';
 import config from '../middleware/config';
 import jwt from 'jsonwebtoken';
 import user from '../types/user.types';
-import order from '../types/order.types';
+import authenticate from '../middleware/Authentication/authentication.middleware';
 
 const Usermodel = new userModel();
 
@@ -15,13 +15,19 @@ export const create = async (
 ) => {
   try {
     const user = await Usermodel.create(req.body);
-    res.json({
-      status: 'success',
-      data: { ...user },
-      message: `user ${req.body.first_name} ${req.body.last_name} created successfuly`
+    //authentication will be checked first when creating a new user
+    const token = await authenticate(req.body.id, req.body.password);
+    console.log(token);
+    if (token == 401) {
+      res.status(401).send({ message: 'auth error' });
+    }
+    res.status(200).send({
+      message: `user ${req.body.first_name} ${req.body.last_name} created successfuly`,
+      data: { token }
     });
   } catch (error) {
     // sinceerror handling already handled
+    console.log('here 6' + error);
     next(error);
   }
 };
@@ -34,10 +40,9 @@ export const index = async (
 ) => {
   try {
     const users: user[] = await Usermodel.index();
-    res.json({
-      status: 'success',
-      data: { ...users },
-      message: 'Users retrieved successfully'
+    res.status(200).send({
+      message: 'users retrieved successfully',
+      data: users
     });
   } catch (error) {
     next(error);
@@ -46,18 +51,20 @@ export const index = async (
 //get user by userID
 export const show = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log(req.params.id);
     const user = await Usermodel.show(req.params.id as unknown as string);
-    res.json({
-      status: 'success',
-      data: { ...user },
-      message: 'user retrieved successfuly'
+
+    res.status(200).send({
+      message: `user ${user.first_name} ${user.last_name} retrieved successfuly`,
+      data: { user }
     });
   } catch (error) {
+    console.log('here 3');
     next(error);
   }
 };
 
-export const authenticate = async (
+/* export const authenticate = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -69,18 +76,16 @@ export const authenticate = async (
     const token = jwt.sign({ auth }, config.tokensecret as unknown as string);
 
     if (!auth) {
-      return res.status(401).json({
+      return res.status(401).send({
         //401:unautherized user
-        status: 'error',
         message: 'the id & password does not match!'
       });
     }
-    return res.json({
-      status: 'success',
+    return res.status(200).send({
       data: { ...auth, token },
       message: 'authentication success'
     });
   } catch (error) {
     next(error);
   }
-};
+}; */
