@@ -20,7 +20,7 @@ class orderModel {
       //step4: return new user
       return result.rows[0];
     } catch (error) {
-      throw new Error(error + 'Unable to find the order');
+      throw new Error('Unable to find the order');
     }
   }
 
@@ -39,7 +39,7 @@ class orderModel {
       //step4: return new user
       return result.rows[0];
     } catch (error) {
-      throw new Error(error + 'Unable to place the order');
+      throw new Error('Unable to place the order');
     }
   }
 
@@ -66,7 +66,7 @@ class orderModel {
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        error + `Unable to add product ${product_id} to order ${order_id}`
+        `Unable to add product ${product_id} to order ${order_id}`
       );
     }
   }
