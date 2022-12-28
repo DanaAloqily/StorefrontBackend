@@ -4,32 +4,29 @@ import config from '../config';
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log('here 4');
+    console.log('at verify middleware 1 ');
     const header = req.get('Authorization');
     console.log(header);
     if (header) {
-      const bearer = header.split(' ')[0].toLowerCase();
-      console.log(bearer);
       const token = header.split(' ')[1];
       console.log('//////');
-      console.log(token);
-      if (token && bearer === 'bearer') {
-        console.log('before verify');
-        const decodedToken = jwt.verify(
-          token,
-          config.tokensecret as unknown as string
-        );
+      console.log('verify middleware-token: ' + token);
 
-        // console.log(token);
-        if (decodedToken) {
-          console.log(decodedToken);
-          next();
-        } else {
-          console.log('here 5');
-          return res
-            .status(401)
-            .send({ auth: false, message: 'No Token provided' });
-        }
+      //console.log('before verify');
+      const decodedToken = jwt.verify(
+        token,
+        config.tokensecret as unknown as string
+      );
+
+      // console.log(token);
+      if (decodedToken) {
+        console.log(decodedToken);
+        next();
+      } else {
+        console.log('at verify middleware 2');
+        return res
+          .status(401)
+          .send({ auth: false, message: 'No Token provided' });
       }
     }
   } catch (error) {

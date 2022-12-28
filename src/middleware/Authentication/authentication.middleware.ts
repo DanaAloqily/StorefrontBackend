@@ -14,11 +14,10 @@ export const authenticate = async (id: string, password: string) => {
     const result = await connection.query(sql, [id]);
 
     // console.log(password + config.pepper);
-    console.log('before if compare');
+    console.log('auth middleware 1');
     if (result.rows.length) {
-      console.log('inside if compare');
       const { password: hashPassword } = result.rows[0];
-      console.log(password);
+      console.log('auth midlleware: ' + password);
       const isPasswordValid = bcrypt.compareSync(
         `${password}${config.pepper}`,
         hashPassword

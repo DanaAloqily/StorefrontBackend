@@ -67,7 +67,7 @@ After start up, the server will start on port `3000` and the database on port `5
 
 ## Endpoint Access
 
-All endpoints are described in the [REQUIREMENT.md](REQUIREMENTS.md) file.
+All endpoints are described in the [REQUIREMENT.md] file.
 
 ## Token and Authentication
 
@@ -77,7 +77,19 @@ Tokens are passed along with the http header as
 Authorization   Bearer <token>
 
 // for token testing, token in postman must be same as token created for the same user (id)
+1- create user [post]
+# `api/user/` [POST]
+- body{
+  "id"='1",
+  "first_name"="test",
+  "last_name"="test",
+  "password"="test123"
+}
+- will return token
 
+2- verify token
+# `api/user/1 [GET]
+- token: ""
 ```
 
 ## Testing

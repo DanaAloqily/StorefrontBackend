@@ -37,6 +37,7 @@ const user_routes = express_1.default.Router();
 }); */
 // api/user
 user_routes.route('/').get(controllers.index).post(controllers.create);
+//verfying token will happen after creating and before retieval
 user_routes.route('/:id').get(verifyToken_middleware_1.default, controllers.show);
 exports.default = user_routes;
-// add jwt.sign to the authenticate middleware
+// for token testing, token in postman must be same as token created for the same user (id)

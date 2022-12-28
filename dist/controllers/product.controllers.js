@@ -22,7 +22,7 @@ const show = async (req, res, next) => {
     try {
         const product = await ProductModel.show(req.params.id);
         res.status(200).send({
-            message: `product ${product.product_name} retrieved successfully`
+            message: `product ${req.params.id} retrieved successfully`
         });
     }
     catch (error) {
@@ -34,7 +34,7 @@ const create = async (req, res, next) => {
     try {
         const product = await ProductModel.create(req.body);
         res.status(200).send({
-            message: `product: ${product.product_name} created successfully`
+            message: `product: ${req.body.product_name} created successfully`
         });
     }
     catch (error) {

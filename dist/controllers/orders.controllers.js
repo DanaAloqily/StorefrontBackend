@@ -14,7 +14,7 @@ const show = async (req, res, next) => {
         const user = await Usermodel.show(req.params.id);
         const order = await Ordermodel.show(req.params.id);
         res.status(200).send({
-            message: `order ${order.id} with status ${order.status} retrieved successfuly`
+            message: `order ${req.params.id} with status ${req.body.status} retrieved successfuly`
         });
     }
     catch (error) {
@@ -28,7 +28,9 @@ const create = async (req, res, next) => {
         const order = await Ordermodel.create(req.body);
         res
             .status(200)
-            .send({ message: `order of user ${order.user_id} created successfuly` });
+            .send({
+            message: `order of user ${req.body.user_id} created successfuly`
+        });
     }
     catch (error) {
         next(error);
@@ -39,10 +41,8 @@ const add_product = async (req, res, next) => {
     try {
         const order = await Ordermodel.add_product(req.params.id, //order id
         req.body.product_id, req.body.quantity);
-        res
-            .status(200)
-            .send({
-            message: `product ${req.body.product_id} added to order ${order.id} `
+        res.status(200).send({
+            message: `product ${req.body.product_id} added to order ${req.params.id} `
         });
     }
     catch (error) {

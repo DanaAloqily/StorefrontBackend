@@ -5,19 +5,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.show = exports.index = exports.create = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
+const authentication_middleware_1 = __importDefault(require("../middleware/Authentication/authentication.middleware"));
 const Usermodel = new user_model_1.default();
 //create user
 const create = async (req, res, next) => {
     try {
         const user = await Usermodel.create(req.body);
+        //authentication will be checked first when creating a new user
+        const token = await (0, authentication_middleware_1.default)(req.body.id, req.body.password);
+        console.log(token);
+        if (token == 401) {
+            res.status(401).send({ message: 'auth error' });
+        }
         res.status(200).send({
-            message: `user ${user.first_name} ${user.last_name} created successfuly`
+            message: `user ${req.body.first_name} ${req.body.last_name} created successfuly`,
+            data: { token }
         });
-        next();
     }
     catch (error) {
         // sinceerror handling already handled
-        console.log('here' + error);
+        console.log('here 6' + error);
         next(error);
     }
 };
@@ -39,9 +46,11 @@ exports.index = index;
 //get user by userID
 const show = async (req, res, next) => {
     try {
+        console.log(req.params.id);
         const user = await Usermodel.show(req.params.id);
         res.status(200).send({
-            message: `user ${user.first_name} ${user.last_name} retrieved successfuly`
+            message: `user ${user.first_name} ${user.last_name} retrieved successfuly`,
+            data: { user }
         });
     }
     catch (error) {

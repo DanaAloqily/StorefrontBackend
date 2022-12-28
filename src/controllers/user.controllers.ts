@@ -17,7 +17,7 @@ export const create = async (
     const user = await Usermodel.create(req.body);
     //authentication will be checked first when creating a new user
     const token = await authenticate(req.body.id, req.body.password);
-    console.log(token);
+    console.log('user controllers-create-token:' + token);
     if (token == 401) {
       res.status(401).send({ message: 'auth error' });
     }
@@ -27,7 +27,7 @@ export const create = async (
     });
   } catch (error) {
     // sinceerror handling already handled
-    console.log('here 6' + error);
+    console.log('user controllers-create' + error);
     next(error);
   }
 };
@@ -59,7 +59,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
       data: { user }
     });
   } catch (error) {
-    console.log('here 3');
+    console.log('user controller - show');
     next(error);
   }
 };

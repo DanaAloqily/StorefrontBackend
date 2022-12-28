@@ -9,11 +9,18 @@ const verifyToken = (req, res, next) => {
     try {
         console.log('here 4');
         const header = req.get('Authorization');
+        console.log(header);
         if (header) {
+            //  const bearer = header.split(' ')[0].toLowerCase();
+            //console.log(bearer);
             const token = header.split(' ')[1];
+            console.log('//////');
+            console.log(token);
+            //console.log('before verify');
             const decodedToken = jsonwebtoken_1.default.verify(token, config_1.default.tokensecret);
             // console.log(token);
             if (decodedToken) {
+                console.log(decodedToken);
                 next();
             }
             else {
@@ -24,10 +31,10 @@ const verifyToken = (req, res, next) => {
             }
         }
     }
-    catch {
-        console.log('here 2');
+    catch (error) {
+        console.log(error);
         res.status(401).send({
-            message: 'invalid request'
+            message: 'cant decode token'
         });
     }
 };

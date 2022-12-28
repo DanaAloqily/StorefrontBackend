@@ -29,11 +29,9 @@ export const create = async (
 ) => {
   try {
     const order: order = await Ordermodel.create(req.body);
-    res
-      .status(200)
-      .send({
-        message: `order of user ${req.body.user_id} created successfuly`
-      });
+    res.status(200).send({
+      message: `order of user ${req.body.user_id} created successfuly`
+    });
   } catch (error) {
     next(error);
   }
