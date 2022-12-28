@@ -75,6 +75,9 @@ Tokens are passed along with the http header as
 
 ```
 Authorization   Bearer <token>
+
+// for token testing, token in postman must be same as token created for the same user (id)
+
 ```
 
 ## Testing

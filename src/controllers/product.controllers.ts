@@ -25,7 +25,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
       req.params.id as unknown as string
     );
     res.status(200).send({
-      message: `product ${req.params.product_name} retrieved successfully`
+      message: `product ${req.params.id} retrieved successfully`
     });
   } catch (error) {
     next(error);
