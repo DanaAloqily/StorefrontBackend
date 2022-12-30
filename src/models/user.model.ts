@@ -4,6 +4,8 @@ import db from '../database';
 import config from '../middleware/config';
 import bcrypt from 'bcrypt';
 
+// building models as shown in the udacity tutorails
+
 //This function will return a hashed password
 const hashPassword = (password: string) => {
   const salt = parseInt(config.salt as string, 10);

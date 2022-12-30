@@ -2,6 +2,9 @@ import user from '../types/user.types';
 import order from '../types/order.types';
 import product from '../types/product.type';
 import db from '../database';
+
+// building models as shown in the udacity tutorails
+
 export class productModel {
   //index: list all procducts
 

@@ -3,6 +3,7 @@ import product from '../types/product.type';
 import order from '../types/order.types';
 import db from '../database';
 
+// building models as shown in the udacity tutorails
 export class orderModel {
   //show: get a specific order by user_id
 
