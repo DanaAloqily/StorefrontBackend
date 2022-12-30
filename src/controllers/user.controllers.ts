@@ -63,29 +63,3 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
-
-/* export const authenticate = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { id, password } = req.body;
-
-    const auth = await Usermodel.authenticate(id, password); //payload
-    const token = jwt.sign({ auth }, config.tokensecret as unknown as string);
-
-    if (!auth) {
-      return res.status(401).send({
-        //401:unautherized user
-        message: 'the id & password does not match!'
-      });
-    }
-    return res.status(200).send({
-      data: { ...auth, token },
-      message: 'authentication success'
-    });
-  } catch (error) {
-    next(error);
-  }
-}; */

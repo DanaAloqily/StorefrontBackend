@@ -15,13 +15,13 @@ class userModel {
   async index(): Promise<user[]> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql = 'SELECT * FROM users ';
-      const result = await connection.query(sql);
+      const result = await database.query(sql);
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       // console.log(result.rows[0])
@@ -35,13 +35,13 @@ class userModel {
   async show(id: string): Promise<user> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql = 'select * from users where id=($1)';
-      const result = await connection.query(sql, [id]);
+      const result = await database.query(sql, [id]);
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       return result.rows[0];
@@ -55,18 +55,18 @@ class userModel {
   async create(u: user): Promise<user> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
       //step2: run sql query
       const sql =
         'INSERT INTO users (first_name, last_name, password) VALUES ($1, $2, $3) returning id, first_name, last_name '; //comes for body of req
-      const result = await connection.query(sql, [
+      const result = await database.query(sql, [
         u.first_name,
         u.last_name,
         hashPassword(u.password)
       ]);
 
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       return result.rows[100];
@@ -78,36 +78,5 @@ class userModel {
       );
     }
   }
-
-  /*   async authenticate(id: string, password: string): Promise<user | null> {
-    try {
-      const salt = parseInt(config.salt as string, 10);
-
-      const connection = await db.connect();
-      const sql = 'SELECT password FROM users WHERE id=$1';
-      const result = await connection.query(sql, [id]);
-
-      console.log(password + config.pepper);
-
-      if (result.rows.length) {
-        const { password: hashPassword } = result.rows[0];
-        const isPasswordValid = bcrypt.compareSync(
-          `${password}${config.pepper}`,
-          hashPassword
-        );
-        if (isPasswordValid) {
-          const userInfo = await connection.query(
-            'SELECT first_name, last_name FROM users WHERE id=($1)',
-            [id]
-          );
-          return userInfo.rows[0];
-        }
-      }
-      connection.release();
-      return null; // no match
-    } catch (error) {
-      throw new Error(`unable to find match: ${(error as Error).message}`);
-    }
-  } */
 }
 export default userModel;

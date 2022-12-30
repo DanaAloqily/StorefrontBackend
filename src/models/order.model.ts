@@ -9,13 +9,13 @@ class orderModel {
   async show(user_id: string): Promise<order> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql = 'SELECT * FROM orders WHERE user_id =($1)';
-      const result = await connection.query(sql, [user_id]);
+      const result = await database.query(sql, [user_id]);
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       return result.rows[0];
@@ -28,13 +28,13 @@ class orderModel {
   async create(o: order): Promise<order> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql = 'INSERT INTO orders ( status ,user_id) VALUES ($1, $2)';
-      const result = await connection.query(sql, [o.status, o.user_id]);
+      const result = await database.query(sql, [o.status, o.user_id]);
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       return result.rows[0];
@@ -50,18 +50,18 @@ class orderModel {
   ): Promise<order> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql =
         'INSERT INTO order_products(order_id, product_id, quantity) VALUES ($1, $2, $3)';
-      const result = await connection.query(sql, [
+      const result = await database.query(sql, [
         order_id,
         product_id,
         quantity
       ]);
       //step3: release db conn
-      connection.release();
+      database.release();
       //step4: return new user
       return result.rows[0];
     } catch (error) {

@@ -8,13 +8,13 @@ class productModel {
   async index(): Promise<product[]> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql = 'SELECT * FROM products ';
-      const result = await connection.query(sql);
+      const result = await database.query(sql);
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       return result.rows[100];
@@ -28,13 +28,13 @@ class productModel {
   async show(id: string): Promise<product> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql = 'SELECT * FROM products WHERE id=($1) ';
-      const result = await connection.query(sql, [id]);
+      const result = await database.query(sql, [id]);
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       return result.rows[100];
@@ -48,18 +48,18 @@ class productModel {
   async create(p: product): Promise<product> {
     try {
       //step1: open conn with db
-      const connection = await db.connect();
+      const database = await db.connect();
 
       //step2: run sql query
       const sql =
         'INSERT INTO products ( product_name, product_price, product_category) VALUES ($1, $2, $3) returning id, product_name, product_price, product_category';
-      const result = await connection.query(sql, [
+      const result = await database.query(sql, [
         p.product_name,
         p.product_price,
         p.product_category
       ]);
       //step3: release db conn
-      connection.release();
+      database.release();
 
       //step4: return new user
       return result.rows[0];
