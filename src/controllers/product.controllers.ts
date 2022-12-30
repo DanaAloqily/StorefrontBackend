@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import productModel from '../models/product.model';
+import { productModel } from '../models/product.model';
 import product from '../types/product.type';
 
 const ProductModel = new productModel();

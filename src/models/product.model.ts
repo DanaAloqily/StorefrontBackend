@@ -2,7 +2,7 @@ import user from '../types/user.types';
 import order from '../types/order.types';
 import product from '../types/product.type';
 import db from '../database';
-class productModel {
+export class productModel {
   //index: list all procducts
 
   async index(): Promise<product[]> {
@@ -69,4 +69,3 @@ class productModel {
     }
   }
 }
-export default productModel;

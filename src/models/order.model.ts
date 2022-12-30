@@ -3,7 +3,7 @@ import product from '../types/product.type';
 import order from '../types/order.types';
 import db from '../database';
 
-class orderModel {
+export class orderModel {
   //show: get a specific order by user_id
 
   async show(user_id: string): Promise<order> {
@@ -71,4 +71,3 @@ class orderModel {
     }
   }
 }
-export default orderModel;

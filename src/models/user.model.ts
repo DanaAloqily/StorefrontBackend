@@ -10,7 +10,7 @@ const hashPassword = (password: string) => {
   return bcrypt.hashSync(`${password}${config.pepper}`, salt);
 };
 
-class userModel {
+export class userModel {
   //index: list all user
   async index(): Promise<user[]> {
     try {
@@ -79,4 +79,3 @@ class userModel {
     }
   }
 }
-export default userModel;

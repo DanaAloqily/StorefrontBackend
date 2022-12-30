@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import userModel from '../../models/user.model';
-import user from '../../types/user.types';
 import db from '../../database';
 import config from '../../middleware/config';
 import bcrypt from 'bcrypt';

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import orderModel from '../models/order.model';
+import { orderModel } from '../models/order.model';
 import order from '../types/order.types';
-import userModel from '../models/user.model';
+import { userModel } from '../models/user.model';
 import user from '../types/user.types';
 
 const Ordermodel = new orderModel();
