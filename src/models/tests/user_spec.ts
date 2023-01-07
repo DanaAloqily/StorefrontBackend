@@ -1,6 +1,5 @@
 import user from '../../types/user.types';
-import userModel from '../user.model';
-
+import { userModel } from '../user.model';
 const User = new userModel();
 const test = {
   id: '1',

@@ -1,4 +1,4 @@
-import orderModel from '../order.model';
+import { orderModel } from "../order.model";
 
 const order = new orderModel();
 const or = {

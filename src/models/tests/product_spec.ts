@@ -1,6 +1,5 @@
 import product from '../../types/product.type';
-import productModel from '../product.model';
-
+import { productModel } from '../product.model';
 const Product = new productModel();
 const prod = {
   id: 1,
