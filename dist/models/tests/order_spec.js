@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const order_model_1 = __importDefault(require("../order.model"));
-const order = new order_model_1.default();
+const order_model_1 = require("../order.model");
+const order = new order_model_1.orderModel();
 const or = {
     id: 1,
     status: 'proccessing',

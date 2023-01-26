@@ -40,11 +40,12 @@ export const index = async (
 ) => {
   try {
     const users: user[] = await Usermodel.index();
+    //console.log('users result');
     res.status(200).send({
       message: 'users retrieved successfully',
-      data: users
+      data: { ...users }
     });
-  } catch (error) {
+  }catch (error) {
     next(error);
   }
 };

@@ -3,18 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.productModel = void 0;
 const database_1 = __importDefault(require("../database"));
+// building models as shown in the udacity tutorails
 class productModel {
     //index: list all procducts
     async index() {
         try {
             //step1: open conn with db
-            const connection = await database_1.default.connect();
+            const database = await database_1.default.connect();
             //step2: run sql query
             const sql = 'SELECT * FROM products ';
-            const result = await connection.query(sql);
+            const result = await database.query(sql);
             //step3: release db conn
-            connection.release();
+            database.release();
             //step4: return new user
             return result.rows[100];
         }
@@ -26,12 +28,12 @@ class productModel {
     async show(id) {
         try {
             //step1: open conn with db
-            const connection = await database_1.default.connect();
+            const database = await database_1.default.connect();
             //step2: run sql query
             const sql = 'SELECT * FROM products WHERE id=($1) ';
-            const result = await connection.query(sql, [id]);
+            const result = await database.query(sql, [id]);
             //step3: release db conn
-            connection.release();
+            database.release();
             //step4: return new user
             return result.rows[100];
         }
@@ -43,16 +45,16 @@ class productModel {
     async create(p) {
         try {
             //step1: open conn with db
-            const connection = await database_1.default.connect();
+            const database = await database_1.default.connect();
             //step2: run sql query
             const sql = 'INSERT INTO products ( product_name, product_price, product_category) VALUES ($1, $2, $3) returning id, product_name, product_price, product_category';
-            const result = await connection.query(sql, [
+            const result = await database.query(sql, [
                 p.product_name,
                 p.product_price,
                 p.product_category
             ]);
             //step3: release db conn
-            connection.release();
+            database.release();
             //step4: return new user
             return result.rows[0];
         }
@@ -62,4 +64,4 @@ class productModel {
         }
     }
 }
-exports.default = productModel;
+exports.productModel = productModel;

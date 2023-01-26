@@ -3,6 +3,7 @@ import order from '../types/order.types';
 import db from '../database';
 import config from '../middleware/config';
 import bcrypt from 'bcrypt';
+import { QueryResult } from 'pg';
 
 // building models as shown in the udacity tutorails
 
@@ -22,6 +23,7 @@ export class userModel {
       //step2: run sql query
       const sql = 'SELECT * FROM users ';
       const result = await database.query(sql);
+      console.log('users resulwt' + JSON.stringify(result.rows[100]));
       //step3: release db conn
       database.release();
 

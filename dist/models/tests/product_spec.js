@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const product_model_1 = __importDefault(require("../product.model"));
-const Product = new product_model_1.default();
+const product_model_1 = require("../product.model");
+const Product = new product_model_1.productModel();
 const prod = {
     id: 1,
     product_name: 'Socks',

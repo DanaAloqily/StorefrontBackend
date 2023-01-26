@@ -1,13 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.add_product = exports.create = exports.show = void 0;
-const order_model_1 = __importDefault(require("../models/order.model"));
-const user_model_1 = __importDefault(require("../models/user.model"));
-const Ordermodel = new order_model_1.default();
-const Usermodel = new user_model_1.default();
+const order_model_1 = require("../models/order.model");
+const user_model_1 = require("../models/user.model");
+const Ordermodel = new order_model_1.orderModel();
+const Usermodel = new user_model_1.userModel();
 //get an order by user_id
 const show = async (req, res, next) => {
     try {
@@ -26,9 +23,7 @@ exports.show = show;
 const create = async (req, res, next) => {
     try {
         const order = await Ordermodel.create(req.body);
-        res
-            .status(200)
-            .send({
+        res.status(200).send({
             message: `order of user ${req.body.user_id} created successfuly`
         });
     }

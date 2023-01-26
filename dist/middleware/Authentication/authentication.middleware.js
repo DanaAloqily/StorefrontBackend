@@ -15,11 +15,10 @@ const authenticate = async (id, password) => {
         const sql = 'SELECT password FROM users WHERE id=$1';
         const result = await connection.query(sql, [id]);
         // console.log(password + config.pepper);
-        console.log('before if compare');
+        console.log('auth middleware 1');
         if (result.rows.length) {
-            console.log('inside if compare');
             const { password: hashPassword } = result.rows[0];
-            console.log(password);
+            console.log('auth midlleware: ' + password);
             const isPasswordValid = bcrypt_1.default.compareSync(`${password}${config_1.default.pepper}`, hashPassword);
             if (isPasswordValid) {
                 const userInfo = await connection.query('SELECT first_name, last_name FROM users WHERE id=($1)', [id]);

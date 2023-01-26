@@ -7,15 +7,13 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
 const verifyToken = (req, res, next) => {
     try {
-        console.log('here 4');
+        console.log('at verify middleware 1 ');
         const header = req.get('Authorization');
         console.log(header);
         if (header) {
-            //  const bearer = header.split(' ')[0].toLowerCase();
-            //console.log(bearer);
             const token = header.split(' ')[1];
             console.log('//////');
-            console.log(token);
+            console.log('verify middleware-token: ' + token);
             //console.log('before verify');
             const decodedToken = jsonwebtoken_1.default.verify(token, config_1.default.tokensecret);
             // console.log(token);
@@ -24,7 +22,7 @@ const verifyToken = (req, res, next) => {
                 next();
             }
             else {
-                console.log('here 5');
+                console.log('at verify middleware 2');
                 return res
                     .status(401)
                     .send({ auth: false, message: 'No Token provided' });

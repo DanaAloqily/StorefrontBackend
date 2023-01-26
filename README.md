@@ -3,6 +3,7 @@
 Building a backend API in Nodejs for a storefront, by creating REST APIs that the frontend developer will use to integrate the backend with the fronend
 
 The database schema and and API endpoint route info are mentioned in the [REQUIREMENT.md]
+# Getting started
 
 ### Installing
 
