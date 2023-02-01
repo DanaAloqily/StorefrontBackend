@@ -13,11 +13,12 @@ class orderModel {
             //step1: open conn with db
             const database = await database_1.default.connect();
             //step2: run sql query
-            const sql = 'SELECT * FROM orders WHERE user_id =($1)';
+            const sql = 'select * from orders where user_id=$1';
             const result = await database.query(sql, [user_id]);
             //step3: release db conn
             database.release();
             //step4: return new user
+            console.log(JSON.stringify('order model show return ' + result.rows[0]));
             return result.rows[0];
         }
         catch (error) {

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = require("../user.model");
 const User = new user_model_1.userModel();
 const test = {
-    id: '1',
+    // id: '1',
     first_name: 'Tala',
     last_name: 'Aloqily',
     password: 'Test234'
@@ -19,19 +19,20 @@ describe('user model', () => {
         expect(User.create).toBeDefined();
     });
     it('index method should return list of users', async () => {
-        const result = await User.index;
+        const result = await User.index();
         expect(result).toBeDefined;
     });
     it('create method should add a user', async () => {
         const result = await User.create({
             first_name: 'Tala',
             last_name: 'Aloqily',
-            password: 'Test234'
+            password: 'Test234',
+            map: undefined
         });
         expect(result).toBeDefined();
     });
-    it('show method returns all users', async () => {
-        const result = await User.index();
-        expect(result).toHaveSize(1);
+    it('show method should return user by id ', async () => {
+        const result = await User.show('1');
+        expect(result).toBeTrue;
     });
 });

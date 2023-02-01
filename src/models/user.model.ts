@@ -21,9 +21,9 @@ export class userModel {
       const database = await db.connect();
 
       //step2: run sql query
-      const sql = 'SELECT * FROM users ';
+      const sql = 'select first_name, last_name from users';
       const result = await database.query(sql);
-      console.log('users resulwt' + JSON.stringify(result.rows[100]));
+      console.log('users result  ' + JSON.stringify(result.rows[100]));
       //step3: release db conn
       database.release();
 
@@ -42,7 +42,7 @@ export class userModel {
       const database = await db.connect();
 
       //step2: run sql query
-      const sql = 'select * from users where id=($1)';
+      const sql = 'select * from users where id=$1';
       const result = await database.query(sql, [id]);
       //step3: release db conn
       database.release();

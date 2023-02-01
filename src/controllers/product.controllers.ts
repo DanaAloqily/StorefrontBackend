@@ -11,8 +11,10 @@ export const index = async (
 ) => {
   try {
     const products: product[] = await ProductModel.index();
+    console.log(products);
     res.status(200).send({
-      message: 'products retrieved successfully'
+      message: 'products retrieved successfully',
+      data: JSON.stringify({ ...products }, null, 2)
     });
   } catch (error) {
     next(error);
@@ -25,7 +27,8 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
       req.params.id as unknown as string
     );
     res.status(200).send({
-      message: `product ${req.params.id} retrieved successfully`
+      message: `product ${req.params.id} retrieved successfully`,
+      data: JSON.stringify(product, null, 2)
     });
   } catch (error) {
     next(error);

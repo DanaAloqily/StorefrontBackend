@@ -8,13 +8,16 @@ const Usermodel = new user_model_1.userModel();
 //get an order by user_id
 const show = async (req, res, next) => {
     try {
-        const user = await Usermodel.show(req.params.id);
+        //const user: user = await Usermodel.show(req.params.id as unknown as string);
         const order = await Ordermodel.show(req.params.id);
+        console.log(JSON.stringify(order));
         res.status(200).send({
-            message: `order ${req.params.id} with status ${req.body.status} retrieved successfuly`
+            message: `order ${JSON.stringify(req.params.id)} retrieved successfuly`,
+            data: JSON.stringify(order, null, 2)
         });
     }
     catch (error) {
+        console.log('order controller - show');
         next(error);
     }
 };
@@ -37,7 +40,7 @@ const add_product = async (req, res, next) => {
         const order = await Ordermodel.add_product(req.params.id, //order id
         req.body.product_id, req.body.quantity);
         res.status(200).send({
-            message: `product ${req.body.product_id} added to order ${req.params.id} `
+            message: `product of id ${req.body.product_id} added to order of id ${req.params.id} `
         });
     }
     catch (error) {

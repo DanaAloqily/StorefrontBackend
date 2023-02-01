@@ -40,12 +40,12 @@ export const index = async (
 ) => {
   try {
     const users: user[] = await Usermodel.index();
-    //console.log('users result');
+    console.log(JSON.stringify(users, null, 2));
     res.status(200).send({
       message: 'users retrieved successfully',
-      data: { ...users }
+      data: JSON.stringify(users, null, 2)
     });
-  }catch (error) {
+  } catch (error) {
     next(error);
   }
 };
@@ -57,7 +57,7 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).send({
       message: `user ${user.first_name} ${user.last_name} retrieved successfuly`,
-      data: { user }
+      data: JSON.stringify(user, null, 2)
     });
   } catch (error) {
     console.log('user controller - show');

@@ -11,7 +11,7 @@ const user_routes = express.Router();
 }); */
 
 // api/user
-user_routes.route('/').get(controllers.index).post(controllers.create);
+user_routes.route('/').get(verifyToken, controllers.index).post(controllers.create);
 //verfying token will happen after creating and before retieval
 user_routes.route('/:id').get(verifyToken, controllers.show);
 

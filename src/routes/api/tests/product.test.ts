@@ -1,7 +1,18 @@
 import products_routes from '../products.routes';
 import * as controllers from '../../../controllers/product.controllers';
+import supertest from 'supertest';
+import app from '../../../server';
 
-it('test the order route with order id', async (done) => {
-  const response = await products_routes.route('./1').get(controllers.show);
-  expect(response).toBeTrue();
+const request = supertest(app);
+
+describe('test product endpoint', function () {
+  it('test index ', async (done) => {
+    const response = await request.get('./api/products/');
+    expect(response.status).toBe(200);
+  });
+
+  it('test show(user-id)', async (done) => {
+    const response = await request.get('./api/products/1');
+    expect(response.status).toBe(200);
+  });
 });

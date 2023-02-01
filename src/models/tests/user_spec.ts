@@ -2,7 +2,7 @@ import user from '../../types/user.types';
 import { userModel } from '../user.model';
 const User = new userModel();
 const test = {
-  id: '1',
+  // id: '1',
   first_name: 'Tala',
   last_name: 'Aloqily',
   password: 'Test234'
@@ -22,7 +22,7 @@ describe('user model', () => {
   });
 
   it('index method should return list of users', async () => {
-    const result = await User.index;
+    const result = await User.index();
     expect(result).toBeDefined;
   });
 
@@ -30,12 +30,13 @@ describe('user model', () => {
     const result = await User.create({
       first_name: 'Tala',
       last_name: 'Aloqily',
-      password: 'Test234'
+      password: 'Test234',
+      map: undefined
     });
     expect(result).toBeDefined();
   });
-  it('show method returns all users', async () => {
-    const result: user[] = await User.index();
-    expect(result).toHaveSize(1);
+  it('show method should return user by id ', async () => {
+    const result: user = await User.show('1');
+    expect(result).toBeTrue;
   });
 });
