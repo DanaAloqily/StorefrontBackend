@@ -16,7 +16,6 @@ app.use((0, morgan_1.default)('common'));
 //to parse incoming req
 app.use(body_parser_1.default.json());
 app.use('/api', routes_1.default);
-//app.use(express.json());
 app.get('/', function (req, res) {
     // throw new Error('Error found')
     res.json({
