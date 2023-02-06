@@ -29,7 +29,7 @@ export class userModel {
 
       //step4: return new user
       // console.log(result.rows[0])
-      return result.rows[100];
+      return result.rows[0];
     } catch (error) {
       throw new Error('Unable to get the users');
     }
@@ -73,7 +73,7 @@ export class userModel {
       database.release();
 
       //step4: return new user
-      return result.rows[100];
+      return result.rows[0];
     } catch (error) {
       throw new Error(
         `Unable to create (${u.first_name}+" "+ ${u.last_name}): ${

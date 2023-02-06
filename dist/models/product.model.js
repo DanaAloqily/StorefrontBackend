@@ -18,7 +18,7 @@ class productModel {
             //step3: release db conn
             database.release();
             //step4: return new user
-            return result.rows[100];
+            return result.rows[0];
         }
         catch (error) {
             throw new Error('Unable to list the products');
@@ -35,7 +35,7 @@ class productModel {
             //step3: release db conn
             database.release();
             //step4: return new user
-            return result.rows[100];
+            return result.rows[0];
         }
         catch (error) {
             throw new Error(error + 'Unable to find the product');
