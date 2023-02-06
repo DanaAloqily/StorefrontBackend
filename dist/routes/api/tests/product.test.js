@@ -11,8 +11,12 @@ describe('test product endpoint', function () {
         const response = await request.get('./api/products/');
         expect(response.status).toBe(200);
     });
-    it('test show(user-id)', async (done) => {
+    it('test show(product-id)', async (done) => {
         const response = await request.get('./api/products/1');
+        expect(response.status).toBe(200);
+    });
+    it('test create', async (done) => {
+        const response = await request.post('./api/products/');
         expect(response.status).toBe(200);
     });
 });

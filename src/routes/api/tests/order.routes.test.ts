@@ -14,4 +14,12 @@ describe('test orders endpoints', function () {
     const response = await request.get('./api/orders/3');
     expect(response.status).toBe(200);
   });
+  it('test create', async (done) => {
+    const response = await request.post('./api/orders/');
+    expect(response.status).toBe(200);
+  });
+  it('test add product', async (done) => {
+    const response = await request.post('./api/orders/1/products');
+    expect(response.status).toBe(200);
+  });
 });

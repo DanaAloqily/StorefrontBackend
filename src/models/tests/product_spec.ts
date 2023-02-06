@@ -2,7 +2,7 @@ import product from '../../types/product.type';
 import { productModel } from '../product.model';
 const Product = new productModel();
 const prod = {
-  id: 13,
+  id: 15,
   product_name: 'Socks',
   product_price: '15',
   product_category: 'clothing'
@@ -28,7 +28,7 @@ describe('product model', () => {
 
   it('create method should add a product', async () => {
     const result = await Product.create({
-      id: 7,
+      id: 15,
       product_name: 'Socks',
       product_price: '15',
       product_category: 'clothing'

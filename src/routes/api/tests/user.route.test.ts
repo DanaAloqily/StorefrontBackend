@@ -14,4 +14,8 @@ describe('test user endpoints', function () {
     const response = await request.get('./api/user/3');
     expect(response.status).toBe(200);
   });
+  it('test create', async (done) => {
+    const response = await request.post('./api/user/');
+    expect(response.status).toBe(200);
+  });
 });
