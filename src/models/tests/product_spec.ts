@@ -2,7 +2,7 @@ import product from '../../types/product.type';
 import { productModel } from '../product.model';
 const Product = new productModel();
 const prod = {
-  id: 15,
+  id: 1,
   product_name: 'Socks',
   product_price: '15',
   product_category: 'clothing'
@@ -28,7 +28,7 @@ describe('product model', () => {
 
   it('create method should add a product', async () => {
     const result = await Product.create({
-      id: 15,
+      id: 1,
       product_name: 'Socks',
       product_price: '15',
       product_category: 'clothing'
@@ -42,7 +42,7 @@ describe('product model', () => {
   });
 
   it('returns a product from id', async () => {
-    const result = await Product.show('13');
+    const result = await Product.show('1');
 
     expect(result).toEqual({
       id: prod.id,

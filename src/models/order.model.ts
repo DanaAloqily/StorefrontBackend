@@ -22,7 +22,7 @@ export class orderModel {
       console.log(JSON.stringify('order model show return ' + result.rows[0]));
       return result.rows[0];
     } catch (error) {
-      throw new Error('Unable to find the order');
+      throw new Error('Unable to find the order' + error);
     }
   }
 
@@ -41,7 +41,7 @@ export class orderModel {
       //step4: return new user
       return result.rows[0];
     } catch (error) {
-      throw new Error('Unable to place the order');
+      throw new Error('Unable to place the order' + error);
     }
   }
 

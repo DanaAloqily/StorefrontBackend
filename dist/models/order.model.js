@@ -22,7 +22,7 @@ class orderModel {
             return result.rows[0];
         }
         catch (error) {
-            throw new Error('Unable to find the order');
+            throw new Error('Unable to find the order' + error);
         }
     }
     //create: place an order
@@ -39,7 +39,7 @@ class orderModel {
             return result.rows[0];
         }
         catch (error) {
-            throw new Error('Unable to place the order');
+            throw new Error('Unable to place the order' + error);
         }
     }
     async add_product(order_id, product_id, quantity) {
