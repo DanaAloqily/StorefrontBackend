@@ -12,7 +12,7 @@ run the following commands
 
 -to install the projects packages/dependencies
 
-""" npm run install """
+""" npm install """
 
 # Database setup
 
