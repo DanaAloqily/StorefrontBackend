@@ -1,13 +1,27 @@
+import user from '../../types/user.types';
 import { orderModel } from '../order.model';
-
+import { userModel } from '../user.model';
 const order = new orderModel();
+const userM = new userModel();
+
 const or = {
   id: 1,
   status: 'proccessing',
   user_id: '1'
 };
+const us = {
+  // id : 1,
+  first_name: 'test',
+  last_name: 'test',
+  password: 'test'
+} as user;
 
 describe('order model', () => {
+  it('create user to test order', async () => {
+    const user = await userM.create(us);
+    expect(user).toBeDefined();
+  });
+
   it('should have a show method', () => {
     expect(order.show).toBeDefined();
   });

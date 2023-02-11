@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const product_model_1 = require("../product.model");
 const Product = new product_model_1.productModel();
 const prod = {
-    id: 6,
+    id: 1,
     product_name: 'Socks',
     product_price: '15',
     product_category: 'clothing'
@@ -24,7 +24,7 @@ describe('product model', () => {
     });
     it('create method should add a product', async () => {
         const result = await Product.create({
-            id: 6,
+            id: 1,
             product_name: 'Socks',
             product_price: '15',
             product_category: 'clothing'
@@ -37,7 +37,7 @@ describe('product model', () => {
         });
     });
     it('returns a product from id', async () => {
-        const result = await Product.show('6');
+        const result = await Product.show('1');
         expect(result).toEqual({
             id: prod.id,
             product_name: result.product_name,

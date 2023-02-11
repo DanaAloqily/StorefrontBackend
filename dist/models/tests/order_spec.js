@@ -1,13 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const order_model_1 = require("../order.model");
+const user_model_1 = require("../user.model");
 const order = new order_model_1.orderModel();
+const userM = new user_model_1.userModel();
 const or = {
     id: 1,
     status: 'proccessing',
     user_id: '1'
 };
+const us = {
+    // id : 1,
+    first_name: 'test',
+    last_name: 'test',
+    password: 'test'
+};
 describe('order model', () => {
+    it('create user to test order', async () => {
+        const user = await userM.create(us);
+        expect(user).toBeDefined();
+    });
     it('should have a show method', () => {
         expect(order.show).toBeDefined();
     });
